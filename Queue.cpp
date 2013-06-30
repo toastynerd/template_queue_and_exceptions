@@ -3,6 +3,7 @@
 //assignment 4
 //Queue.cpp
 #include <iostream>
+#include "QueueExceptions.h"
 
 template<typename T>
 class Queue
@@ -22,16 +23,21 @@ public:
 
   void push(T input)
   {
-    if(my_current_size <= my_max_size)
+    if(my_current_size == my_max_size)
     {
-      my_queue[my_current_size] = input;
-      my_current_size++;
+      throw new QueueFull;
     }
 
+    my_queue[my_current_size] = input;
+    my_current_size++;
   }
 
   T pop()
   {
+    if(my_current_size == 0)
+    {
+      throw new QueueEmpty;
+    }
     T temp_value = my_queue[0];
     for(int x =0; x < my_current_size; x++)
     {
@@ -55,6 +61,10 @@ public:
 
   T at(int location)
   {
+    if(location > my_current_size || location < 0)
+    {
+      throw new MissingElement;
+    }
     return my_queue[location];
   }
 
@@ -74,7 +84,6 @@ public:
       }
     }
   }
-
 
 private:
   int my_current_size;

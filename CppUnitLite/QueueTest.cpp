@@ -53,3 +53,16 @@ TEST(assignment, Queue)
   CHECK_EQUAL(5, queue6.pop());
 
 }
+
+TEST(exception, Queue)
+{
+  Queue<int> queue5(10);
+  try
+  {
+    queue5.pop();
+  }
+  catch(QueueEmpty* e)
+  {
+    std::cerr << e->GetDescription(); 
+  }
+}
